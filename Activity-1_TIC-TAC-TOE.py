@@ -12,7 +12,7 @@ def display_board(board):
         elif cell == 'O':
             return Fore.BLUE + cell + Style.RESET_ALL
         else:
-            return Fore.WHITE + cell + Style.RESET_ALL
+            return Fore.YELLOW + cell + Style.RESET_ALL
     print(' ' + colored(board[0]) + f'{Fore.CYAN} | ' + colored(board[1]) + f'{Fore.CYAN} | ' + colored(board[2]))
     print(Fore.CYAN + '---+---+---' + Style.RESET_ALL)
     print(' ' + colored(board[3]) + f'{Fore.CYAN} | ' + colored(board[4]) + f'{Fore.CYAN} | ' + colored(board[5]))
@@ -34,9 +34,9 @@ def player_move(board, symbol):
     move = -1
     while move not in range(1, 10) or not board[move - 1].isdigit():
         try:
-            move = int(input(f"Enter your move (1-9) as {symbol}: "))
+            move = int(input(f"Enter your move (1-9) as{Fore.RED if symbol == 'X' else Fore.BLUE} {symbol}{Style.RESET_ALL}: "))
             if move not in range(1, 10) or not board[move - 1].isdigit():
-                print("Invalid move. Please try again.")
+                print(f"{Fore.RED}Invalid move{Style.RESET_ALL}. Please try again.")
         except ValueError:
             print("Please enter a number between 1 and 9.")
     board[move - 1] = symbol
@@ -110,7 +110,7 @@ def check_full(board):
 
 def tic_tac_toe():
     print(f"Welcome to{Fore.RED} Tic{Fore.WHITE}-{Fore.GREEN}Tac{Fore.WHITE}-{Fore.BLUE}Toe {Fore.WHITE}by Tavish!")
-    player_name = input(Fore.GREEN + "Enter your name: " + Style.RESET_ALL)
+    player_name = input(f"Enter your {Fore.GREEN}name{Style.RESET_ALL}: ")
     while True:
         board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
         player_symbol, ai_symbol = player_choice()
@@ -133,7 +133,7 @@ def tic_tac_toe():
                     else:
                         turn = 'AI'
             else:
-                print(Fore.RED + "AI is thinking...")
+                print(Fore.RED + f"AI {Fore.WHITE}is thinking...")
                 sleep(1)
 
                 ai_move(board, ai_symbol, player_symbol)
@@ -150,7 +150,7 @@ def tic_tac_toe():
                         turn = 'Player'
         play_again = input(f"Do you want to play again? ({Fore.GREEN}yes{Fore.WHITE}/{Fore.RED}no{Fore.WHITE}): ").lower()
         if play_again != 'yes':
-            print(Fore.MAGENTA +"Thank you for playing!")
+            print("Thank you for playing!")
             break
 
 if __name__ == "__main__":
