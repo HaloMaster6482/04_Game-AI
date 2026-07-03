@@ -21,6 +21,7 @@ def display_board(board):
     print()
 
 def player_choice():
+    global symbol
     symbol = ''
     while symbol not in ['X', 'O']:
         symbol = input(f"Do you want to be {Fore.RED}X{Fore.WHITE} or{Fore.BLUE} O{Fore.WHITE}? " + Style.RESET_ALL).upper()
@@ -33,7 +34,7 @@ def player_move(board, symbol):
     move = -1
     while move not in range(1, 10) or not board[move - 1].isdigit():
         try:
-            move = int(input("Enter your move (1-9): "))
+            move = int(input(f"Enter your move (1-9) as {symbol}: "))
             if move not in range(1, 10) or not board[move - 1].isdigit():
                 print("Invalid move. Please try again.")
         except ValueError:
